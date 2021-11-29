@@ -12,6 +12,8 @@ const config = {
     measurementId: "G-VFTBNY09T6"
   };
 
+  firebase.initializeApp(config);
+
   export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
 
@@ -22,7 +24,6 @@ const config = {
     if(!snapShot.exists) {
       const { displayName, email } = userAuth;
       const createdAt = new Date();
-
       try {
         await userRef.set( {
           displayName,
@@ -37,7 +38,10 @@ const config = {
     return userRef;
   };
 
-  firebase.initializeApp(config);
+  export const addCollectionAndDocuments = (collectionKey, objectsToAdd) => {
+    const collectionRef = firestore.collection(collectionKey);
+    console.log(collectionRef)
+  };
 
   export const auth = firebase.auth();
   export const firestore = firebase.firestore();
